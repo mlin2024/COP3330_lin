@@ -1,4 +1,4 @@
-public class First {
+public class Encrypter {
     public static void main(String[] args) {
 
     }
