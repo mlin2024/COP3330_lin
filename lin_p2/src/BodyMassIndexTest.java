@@ -12,6 +12,12 @@ class BodyMassIndexTest {
     }
 
     @Test
+    void testCalculateBmiScore() {
+        BodyMassIndex bmi = new BodyMassIndex(61, 105);
+        assertEquals(bmi.bmi, 19.8374093, 1e-4);
+    }
+
+    @Test
     void testUnderweight() {
         BodyMassIndex bmi = new BodyMassIndex(61, 10);
         assertEquals(bmi.category, "Underweight");
