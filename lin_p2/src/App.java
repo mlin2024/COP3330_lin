@@ -59,8 +59,7 @@ public class App {
 
     // Displays the user's BMI and category
     public static void displayBmiInfo(BodyMassIndex bmi) {
-        String category = bmi.calculateBmiCategory(bmi.bmi);
-        System.out.printf("Your BMI is %.1d, which means you are %s.", bmi.bmi, category);
+        System.out.printf("Your BMI is %.1d, which means you are %s.", bmi.bmi, bmi.category);
     }
 
     // Finds the average BMI for all users so far
