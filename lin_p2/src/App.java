@@ -36,8 +36,14 @@ public class App {
         System.out.println("Input your height in inches.");
         double height;
         while(true) {
-            height = scanny.nextDouble();
-            scanny.nextLine();
+            try {
+                height = scanny.nextDouble();
+            }
+            catch(Exception e) {
+                System.out.println("Invalid input, please enter a positive number for your height in inches.");
+                scanny.nextLine();
+                continue;
+            }
             if(height>0) return height;
             // If the input is invalid, try again
             System.out.println("Invalid input, please enter a positive number for your height in inches.");
@@ -49,8 +55,14 @@ public class App {
         System.out.println("Input your weight in pounds.");
         double weight;
         while(true) {
-            weight = scanny.nextDouble();
-            scanny.nextLine();
+            try {
+                weight = scanny.nextDouble();
+            }
+            catch(Exception e) {
+                System.out.println("Invalid input, please enter a positive number for your weight in pounds.");
+                scanny.nextLine();
+                continue;
+            }
             if(weight>0) return weight;
             // If the input is invalid, try again
             System.out.println("Invalid input, please enter a positive number for your weight in pounds.");
@@ -59,7 +71,7 @@ public class App {
 
     // Displays the user's BMI and category
     public static void displayBmiInfo(BodyMassIndex bmi) {
-        System.out.printf("Your BMI is %.1d, which means you are %s.", bmi.bmi, bmi.category);
+        System.out.printf("Your BMI is %.1f, which means you are %s.\n", bmi.bmi, bmi.category.toLowerCase());
     }
 
     // Finds the average BMI for all users so far
@@ -74,6 +86,6 @@ public class App {
     // Displays the average BMI for all users so far
     public static void displayBmiStatistics(ArrayList<BodyMassIndex> bmiData) {
         double average = findBmiStatistics(bmiData);
-        System.out.printf("The average BMI is %.1d.", average);
+        System.out.printf("The average BMI is %.1f.\n", average);
     }
 }
