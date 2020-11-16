@@ -33,6 +33,8 @@ public class TaskList {
         else {
             for (int i = 0; i < tasks.size(); i++) {
                 TaskItem curTask = tasks.get(i);
+                if(curTask.getComplete()==true) System.out.print("X ");
+                else System.out.print("O ");
                 System.out.println((i + 1) + ") [" + curTask.getDueDate() + "] " + curTask.getName() + ": " + curTask.getDescription());
             }
         }

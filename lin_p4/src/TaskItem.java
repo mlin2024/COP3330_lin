@@ -14,7 +14,7 @@ public class TaskItem {
         if(isDescriptionValid(description)) {
             this.description = description;
         } else {
-            throw new InvalidDescriptionException("Description is not valid; must be at least 1 character long");
+            throw new InvalidDescriptionException("Description is not valid; must be at least 0 characters long");
         }
 
         if(isDueDateValid(dueDate)) {
@@ -31,7 +31,7 @@ public class TaskItem {
     }
 
     private boolean isDescriptionValid(String description) {
-        return description.length() > 0;
+        return description.length() >= 0;
     }
 
     private boolean isDueDateValid(String dueDate) {
