@@ -2,6 +2,7 @@ public class TaskItem {
     private String name;
     private String description;
     private String dueDate;
+    private boolean complete;
 
     public TaskItem(String name, String description, String dueDate) {
         if(isNameValid(name)) {
@@ -21,6 +22,8 @@ public class TaskItem {
         } else {
             throw new InvalidDueDateException("Due date is not valid; must be in the form YYYY-MM-DD");
         }
+
+        this.complete = false;
     }
 
     private boolean isNameValid(String name) {
@@ -65,21 +68,34 @@ public class TaskItem {
         return this.dueDate;
     }
 
-    class InvalidNameException extends IllegalArgumentException {
-        public InvalidNameException(String msg) {
-            super(msg);
-        }
+    public boolean getComplete() {
+        return this.complete;
     }
 
-    class InvalidDescriptionException extends IllegalArgumentException {
-        public InvalidDescriptionException(String msg) {
-            super(msg);
-        }
+    public void edit(String newName, String newDescription, String newDueDate) {
+        this.name = newName;
+        this.description = newDescription;
+        this.dueDate = newDueDate;
     }
 
-    class InvalidDueDateException extends IllegalArgumentException {
-        public InvalidDueDateException(String msg) {
-            super(msg);
-        }
+    public void setCompletionStatus(boolean completionStatus) {
+        this.complete = completionStatus;
+    }
+}
+class InvalidNameException extends IllegalArgumentException {
+    public InvalidNameException(String msg) {
+        super(msg);
+    }
+}
+
+class InvalidDescriptionException extends IllegalArgumentException {
+    public InvalidDescriptionException(String msg) {
+        super(msg);
+    }
+}
+
+class InvalidDueDateException extends IllegalArgumentException {
+    public InvalidDueDateException(String msg) {
+        super(msg);
     }
 }
