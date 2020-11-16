@@ -1,4 +1,8 @@
 public class TaskItem {
+    private String name;
+    private String description;
+    private String dueDate;
+
     public TaskItem(String name, String description, String dueDate) {
         if(isNameValid(name)) {
             this.name = name;
@@ -47,5 +51,35 @@ public class TaskItem {
         if(month>12) return false;
         if(day>31) return false;
         return true;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getDueDate() {
+        return this.dueDate;
+    }
+
+    class InvalidNameException extends IllegalArgumentException {
+        public InvalidNameException(String msg) {
+            super(msg);
+        }
+    }
+
+    class InvalidDescriptionException extends IllegalArgumentException {
+        public InvalidDescriptionException(String msg) {
+            super(msg);
+        }
+    }
+
+    class InvalidDueDateException extends IllegalArgumentException {
+        public InvalidDueDateException(String msg) {
+            super(msg);
+        }
     }
 }
