@@ -73,6 +73,7 @@ public class TaskItem {
     }
 
     public void edit(String newName, String newDescription, String newDueDate) {
+        new TaskItem(newName, newDescription, newDueDate);
         this.name = newName;
         this.description = newDescription;
         this.dueDate = newDueDate;
