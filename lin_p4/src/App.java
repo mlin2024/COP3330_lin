@@ -155,18 +155,11 @@ public class App {
         return scanny.nextLine();
     }
 
-    private boolean inBounds(int index) {
-        return (index<0 || index>tasks.size());
-    }
-
     private void edit() {
-        tasks.printList();
-        System.out.println("Edit which item?");
-        int itemToEdit = Integer.parseInt(promptInput())-1;
-        if(inBounds(itemToEdit)) {
-            System.out.println("Item doesn't exist.");
-        }
-        else {
+        try {
+            tasks.printList();
+            System.out.println("Edit which item?");
+            int itemToEdit = Integer.parseInt(promptInput())-1;
             System.out.print("Enter a new name for the task: ");
             String newName = scanny.nextLine();
             System.out.print("Enter a new description for the task: ");
@@ -174,48 +167,49 @@ public class App {
             System.out.print("Enter the task's new due date in the form YYYY-MM-DD: ");
             String newDueDate = scanny.nextLine();
             tasks.edit(itemToEdit, newName, newDescription, newDueDate);
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Item doesn't exist");
         }
     }
 
     private void remove() {
-        tasks.printList();
-        System.out.println("Remove which item?");
-        int itemToRemove = Integer.parseInt(promptInput())-1;
-        if(inBounds(itemToRemove)) {
-            System.out.println("Item doesn't exist.");
-        }
-        else {
+        try {
+            tasks.printList();
+            System.out.println("Remove which item?");
+            int itemToRemove = Integer.parseInt(promptInput())-1;
             tasks.remove(itemToRemove);
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Item doesn't exist");
         }
     }
 
     private void setComplete() {
-        tasks.printList();
-        System.out.println("Mark which item as complete?");
-        int itemToSetComplete = Integer.parseInt(promptInput())-1;
-        if(inBounds(itemToSetComplete)) {
-            System.out.println("Item doesn't exist.");
-        }
-        else if(tasks.getTaskItem(itemToSetComplete).getComplete()==true) {
-            System.out.println("Item is already marked as complete.");
-        }
-        else {
-            tasks.setCompletionStatus(itemToSetComplete, true);
+        try {
+            tasks.printList();
+            System.out.println("Mark which item as complete?");
+            int itemToSetComplete = Integer.parseInt(promptInput()) - 1;
+            if (tasks.getTaskItem(itemToSetComplete).getComplete() == true) {
+                System.out.println("Item is already marked as complete.");
+            } else {
+                tasks.setCompletionStatus(itemToSetComplete, true);
+            }
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Item doesn't exist");
         }
     }
 
     private void setIncomplete() {
-        tasks.printList();
-        System.out.println("Unmark which item as incomplete?");
-        int itemToSetIncomplete = Integer.parseInt(promptInput())-1;
-        if(inBounds(itemToSetIncomplete)) {
-            System.out.println("Item doesn't exist.");
-        }
-        else if(tasks.getTaskItem(itemToSetIncomplete).getComplete()==false) {
-            System.out.println("Item is not marked as complete.");
-        }
-        else {
-            tasks.setCompletionStatus(itemToSetIncomplete, true);
+        try {
+            tasks.printList();
+            System.out.println("Unmark which item as incomplete?");
+            int itemToSetIncomplete = Integer.parseInt(promptInput()) - 1;
+            if (tasks.getTaskItem(itemToSetIncomplete).getComplete() == false) {
+                System.out.println("Item is not marked as complete.");
+            } else {
+                tasks.setCompletionStatus(itemToSetIncomplete, true);
+            }
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Item doesn't exist");
         }
     }
 

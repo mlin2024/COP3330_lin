@@ -41,15 +41,30 @@ public class TaskList {
     }
 
     public void edit(int index, String newName, String newDescription, String newDueDate) {
-        tasks.get(index).edit(newName, newDescription, newDueDate);
+        if(index<0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Item doesn't exist");
+        }
+        else {
+            tasks.get(index).edit(newName, newDescription, newDueDate);
+        }
     }
 
     public void remove(int index) {
-        tasks.remove(index);
+        if(index<0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Item doesn't exist");
+        }
+        else {
+            tasks.remove(index);
+        }
     }
 
     public void setCompletionStatus(int index, boolean completionStatus) {
-        tasks.get(index).setCompletionStatus(completionStatus);
+        if(index<0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Item doesn't exist");
+        }
+        else {
+            tasks.get(index).setCompletionStatus(completionStatus);
+        }
     }
 
     public void read(String filename) {
