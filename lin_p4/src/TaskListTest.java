@@ -205,7 +205,7 @@ class TaskListTest {
                 ()-> {
                     TaskList tasks = new TaskList();
                     tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.write("test.txt");
+                    tasks.read("test.txt");
                 });
     }
 
@@ -228,5 +228,30 @@ class TaskListTest {
                     tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
                     tasks.setCompletionStatus(1, false);
                 });
+    }
+
+    @Test
+    public void taskListCanBeWrittenToFile() {
+        assertDoesNotThrow(
+                ()-> {
+                    TaskList tasks = new TaskList();
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+                    tasks.write("test.txt");
+                });
+    }
+
+    @Test
+    public void importingAndExportingIsCorrect() {
+        TaskList tasks = new TaskList();
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+        String oldName = tasks.getTaskItem(0).getName();
+        String oldDescription = tasks.getTaskItem(0).getDescription();
+        String oldDueDate = tasks.getTaskItem(0).getDueDate();
+        tasks.write("test.txt");
+        TaskList newTasks = new TaskList();
+        newTasks.read("test.txt");
+        assertEquals(oldName, newTasks.getTaskItem(0).getName());
+        assertEquals(oldDescription, newTasks.getTaskItem(0).getDescription());
+        assertEquals(oldDueDate, newTasks.getTaskItem(0).getDueDate());
     }
 }
