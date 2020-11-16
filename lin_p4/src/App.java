@@ -23,7 +23,7 @@ public class App {
         return userInput.toLowerCase().startsWith("y");
     }
 
-    private void writeStudentData() {
+    private void writeTaskItem() {
         tasks.write("output.txt");
     }
 
@@ -35,8 +35,9 @@ public class App {
         TaskItem task = null;
         while(true) {
             try {
-                String name = getStudentName();
-                String grade = getStudentGrade();
+                String name = getTaskName();
+                String description = getTaskDescription();
+                String dueDate = getTaskDueDate();
 
                 task = new TaskItem(name, description, dueDate);
                 break;
