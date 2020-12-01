@@ -14,86 +14,6 @@ public class TaskApp extends App {
         tasks = (TaskList)list;
     }
 
-// ABSTRACT METHODS _______________________________________________________
-    @Override
-    public void runMainMenu() {
-        int input = -1;
-        while(input!=0) {
-            System.out.println();
-            System.out.println("Task List Application Main Menu");
-            System.out.println("____________");
-            System.out.println("1) Create a new list");
-            System.out.println("2) Load an existing list");
-            System.out.println("0) Quit");
-            input = Integer.parseInt(promptInput());
-            switch(input) {
-                case 1: // Create a new list
-                    tasks = new TaskList();
-                    runListOperationMenu();
-                    break;
-                case 2: // Load an existing list
-                    System.out.print("Enter the filename to load: ");
-                    String filename = scanny.nextLine();
-                    tasks = new TaskList();
-                    tasks.read(filename);
-                    runListOperationMenu();
-                    break;
-                case 0: // Quit
-                    System.out.println("Goodbye.");
-                    break;
-                default:
-                    System.out.println("Invalid input. Please enter a number 0 - 2.");
-                    break;
-            }
-        }
-    }
-
-    private void runListOperationMenu() {
-        int input = -1;
-        while(input!=0) {
-            System.out.println();
-            System.out.println("List Operation Menu");
-            System.out.println("____________");
-            System.out.println("1) View current list");
-            System.out.println("2) Add item to current list");
-            System.out.println("3) Edit item in current list");
-            System.out.println("4) Remove item from current list");
-            System.out.println("5) Mark item as completed in current list");
-            System.out.println("6) Unmark item as completed in current list");
-            System.out.println("7) Save current list");
-            System.out.println("0) Quit to main menu");
-            input = Integer.parseInt(promptInput());
-            switch(input) {
-                case 1: // View current list
-                    tasks.printList();
-                    break;
-                case 2: // Add item to current list
-                    storeItem(getItem());
-                    break;
-                case 3: // Edit item in current list
-                    edit();
-                    break;
-                case 4: // Remove item from current list
-                    remove();
-                    break;
-                case 5: // Mark item as completed in current list
-                    setComplete();
-                    break;
-                case 6: // Unmark item as completed in current list
-                    setIncomplete();
-                    break;
-                case 7: // Save current list
-                    write();
-                    break;
-                case 0: // Quit to main menu
-                    break;
-                default:
-                    System.out.println("Invalid input. Please enter a number 0 - 7.");
-                    break;
-            }
-        }
-    }
-
     private String getTaskName() {
         System.out.print("Enter a name for the task: ");
         return scanny.nextLine();
@@ -139,14 +59,85 @@ public class TaskApp extends App {
         }
     }
 
+// ABSTRACT METHODS _______________________________________________________
     @Override
-    public void writeItem() {
-        tasks.write("output.txt");
+    public void runMainMenu() {
+        int input = -1;
+        while(input!=0) {
+            System.out.println();
+            System.out.println("Task List Application Main Menu");
+            System.out.println("____________");
+            System.out.println("1) Create a new list");
+            System.out.println("2) Load an existing list");
+            System.out.println("0) Quit");
+            input = Integer.parseInt(promptInput());
+            switch(input) {
+                case 1: // Create a new list
+                    tasks = new TaskList();
+                    runListOperationMenu();
+                    break;
+                case 2: // Load an existing list
+                    System.out.print("Enter the filename to load: ");
+                    String filename = scanny.nextLine();
+                    tasks = new TaskList();
+                    tasks.read(filename);
+                    runListOperationMenu();
+                    break;
+                case 0: // Quit
+                    System.out.println("Goodbye.");
+                    break;
+                default:
+                    System.out.println("Invalid input. Please enter a number 0 - 2.");
+                    break;
+            }
+        }
     }
 
     @Override
-    public void storeItem(Item task) {
-        tasks.add(task);
+    public void runListOperationMenu() {
+        int input = -1;
+        while(input!=0) {
+            System.out.println();
+            System.out.println("List Operation Menu");
+            System.out.println("____________");
+            System.out.println("1) View current list");
+            System.out.println("2) Add item to current list");
+            System.out.println("3) Edit item in current list");
+            System.out.println("4) Remove item from current list");
+            System.out.println("5) Mark item as completed in current list");
+            System.out.println("6) Unmark item as completed in current list");
+            System.out.println("7) Save current list");
+            System.out.println("0) Quit to main menu");
+            input = Integer.parseInt(promptInput());
+            switch(input) {
+                case 1: // View current list
+                    tasks.printList();
+                    break;
+                case 2: // Add item to current list
+                    storeItem(getItem());
+                    break;
+                case 3: // Edit item in current list
+                    edit();
+                    break;
+                case 4: // Remove item from current list
+                    remove();
+                    break;
+                case 5: // Mark item as completed in current list
+                    setComplete();
+                    break;
+                case 6: // Unmark item as completed in current list
+                    setIncomplete();
+                    break;
+                case 7: // Save current list
+                    write();
+                    break;
+                case 0: // Quit to main menu
+                    break;
+                default:
+                    System.out.println("Invalid input. Please enter a number 0 - 7.");
+                    break;
+            }
+        }
     }
 
     @Override
@@ -163,7 +154,7 @@ public class TaskApp extends App {
             } catch (InvalidNameException ex) {
                 System.out.println("Warning: your name was invalid, please double check it and try again");
             } catch (InvalidDescriptionException ex) {
-                System.out.println("Warning: your grade was invalid, please double check it and try again");
+                System.out.println("Warning: your description was invalid, please double check it and try again");
             } catch (InvalidDueDateException ex) {
                 System.out.println("Warning: your due date was invalid, please double check it and try again");
             }
@@ -188,25 +179,6 @@ public class TaskApp extends App {
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
         }
-    }
-
-    @Override
-    public void remove() {
-        try {
-            tasks.printList();
-            System.out.println("Remove which item?");
-            int itemToRemove = Integer.parseInt(promptInput())-1;
-            tasks.remove(itemToRemove);
-        } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Item doesn't exist");
-        }
-    }
-
-    @Override
-    public void write() {
-        System.out.println("Save to what file?");
-        String filename = scanny.nextLine();
-        tasks.write(filename);
     }
 
     public static void main(String[] args) {

@@ -59,13 +59,35 @@ public abstract class App {
         }
     }
 
+    public void storeItem(Item task) {
+        list.add(task);
+    }
+
+    public void writeItem() {
+        list.write("output.txt");
+    }
+
+    public void remove() {
+        try {
+            list.printList();
+            System.out.println("Remove which item?");
+            int itemToRemove = Integer.parseInt(promptInput())-1;
+            list.remove(itemToRemove);
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Item doesn't exist");
+        }
+    }
+
+    public void write() {
+        System.out.println("Save to what file?");
+        String filename = scanny.nextLine();
+        list.write(filename);
+    }
+
     abstract public void runMainMenu();
-    abstract public void writeItem();
-    abstract public void storeItem(Item item);
+    abstract public void runListOperationMenu();
     abstract public Item getItem();
     abstract public void edit();
-    abstract public void remove();
-    abstract public void write();
 
     public static void main(String[] args) {
         runAppMenu();
