@@ -72,10 +72,9 @@ public class TaskList {
             File file = new File(filename);
             Scanner scanny = new Scanner(file);
             while(scanny.hasNextLine()) {
-                String[] taskArray = scanny.nextLine().split(";");
-                String name = taskArray[0];
-                String description = taskArray[1];
-                String dueDate = taskArray[2];
+                String name = scanny.nextLine();
+                String description = scanny.nextLine();
+                String dueDate = scanny.nextLine();
                 add(new TaskItem(name, description, dueDate));
             }
         } catch (FileNotFoundException ex) {
@@ -89,7 +88,7 @@ public class TaskList {
         try(Formatter output = new Formatter(filename)) {
             for(int i = 0; i < tasks.size(); i++) {
                 TaskItem task = tasks.get(i);
-                output.format("%s;%s;%s%n", task.getName(), task.getDescription(), task.getDueDate());
+                output.format("%s%n%s%n%s%n", task.getName(), task.getDescription(), task.getDueDate());
             }
 
         } catch (FileNotFoundException ex) {

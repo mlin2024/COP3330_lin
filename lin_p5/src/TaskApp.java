@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TaskApp {
+public class TaskApp extends App{
     private static Scanner scanny = new Scanner(System.in);
 
     private TaskList tasks;
@@ -88,26 +88,6 @@ public class TaskApp {
                     System.out.println("Invalid input. Please enter a number 0 - 7.");
                     break;
             }
-        }
-    }
-
-    private static String promptInput() {
-        System.out.print("> ");
-        String input = scanny.nextLine();
-        while(!verifyInputIsGood(input)) {
-            System.out.print("> ");
-            input = scanny.nextLine();
-        }
-        return input;
-    }
-
-    private static boolean verifyInputIsGood(String userInput) {
-        try {
-            Integer.parseInt(userInput);
-            return true;
-        } catch (NumberFormatException ex){
-            System.out.println("Invalid input, please try again");
-            return false;
         }
     }
 
@@ -219,8 +199,6 @@ public class TaskApp {
         tasks.write(filename);
     }
 
-    // Write a program that allows the user to read in a file of student names and grades and
-    // displays that information to the console.
     public static void main(String[] args) {
         TaskApp m = new TaskApp();
 
