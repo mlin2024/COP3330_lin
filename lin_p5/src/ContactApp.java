@@ -7,11 +7,9 @@ import java.util.Scanner;
 public class ContactApp extends App {
     private static Scanner scanny = new Scanner(System.in);
 
-    private ContactList contacts;
-
 // CONTACTAPP METHODS _______________________________________________________
     public ContactApp() {
-        contacts = (ContactList)list;
+        list = new ContactList();
     }
 
     private String getContactFirstName() {
@@ -48,14 +46,14 @@ public class ContactApp extends App {
             input = Integer.parseInt(promptInput());
             switch(input) {
                 case 1: // Create a new list
-                    contacts = new ContactList();
+                    list = new ContactList();
                     runListOperationMenu();
                     break;
                 case 2: // Load an existing list
                     System.out.print("Enter the filename to load: ");
                     String filename = scanny.nextLine();
-                    contacts = new ContactList();
-                    contacts.read(filename);
+                    list = new ContactList();
+                    list.read(filename);
                     runListOperationMenu();
                     break;
                 case 0: // Quit
@@ -84,10 +82,11 @@ public class ContactApp extends App {
             input = Integer.parseInt(promptInput());
             switch(input) {
                 case 1: // View current list
-                    contacts.printList();
+                    list.printList();
                     break;
                 case 2: // Add item to current list
                     storeItem(getItem());
+                    System.out.println("Your contact was added to the list.");
                     break;
                 case 3: // Edit item in current list
                     edit();
@@ -133,7 +132,7 @@ public class ContactApp extends App {
     @Override
     public void edit() {
         try {
-            contacts.printList();
+            list.printList();
             System.out.println("Edit which item?");
             int itemToEdit = Integer.parseInt(promptInput())-1;
             System.out.print("Enter a new first name for the contact: ");
@@ -145,7 +144,7 @@ public class ContactApp extends App {
             System.out.print("Enter a new email for the contact: ");
             String newEmail = scanny.nextLine();
 
-            contacts.edit(itemToEdit, new String[]{newFirstName, newLastName, newPhoneNumber, newEmail});
+            list.edit(itemToEdit, new String[]{newFirstName, newLastName, newPhoneNumber, newEmail});
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
         }

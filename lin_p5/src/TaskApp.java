@@ -7,11 +7,9 @@ import java.util.Scanner;
 public class TaskApp extends App {
     private static Scanner scanny = new Scanner(System.in);
 
-    private TaskList tasks;
-
 // TASKAPP METHODS _______________________________________________________
     public TaskApp() {
-        tasks = (TaskList)list;
+        list = new TaskList();
     }
 
     private String getTaskName() {
@@ -31,13 +29,13 @@ public class TaskApp extends App {
 
     private void setComplete() {
         try {
-            tasks.printList();
+            list.printList();
             System.out.println("Mark which item as complete?");
             int itemToSetComplete = Integer.parseInt(promptInput()) - 1;
-            if (tasks.getItem(itemToSetComplete).getComplete() == true) {
+            if (((TaskItem)(list.getItem(itemToSetComplete))).getComplete() == true) {
                 System.out.println("Item is already marked as complete.");
             } else {
-                tasks.setCompletionStatus(itemToSetComplete, true);
+                ((TaskList)(list)).setCompletionStatus(itemToSetComplete, true);
             }
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
@@ -46,13 +44,13 @@ public class TaskApp extends App {
 
     private void setIncomplete() {
         try {
-            tasks.printList();
+            list.printList();
             System.out.println("Unmark which item as incomplete?");
             int itemToSetIncomplete = Integer.parseInt(promptInput()) - 1;
-            if (tasks.getItem(itemToSetIncomplete).getComplete() == false) {
+            if (((TaskItem)(list.getItem(itemToSetIncomplete))).getComplete() == false) {
                 System.out.println("Item is not marked as complete.");
             } else {
-                tasks.setCompletionStatus(itemToSetIncomplete, true);
+                ((TaskList)(list)).setCompletionStatus(itemToSetIncomplete, true);
             }
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
@@ -73,14 +71,14 @@ public class TaskApp extends App {
             input = Integer.parseInt(promptInput());
             switch(input) {
                 case 1: // Create a new list
-                    tasks = new TaskList();
+                    list = new TaskList();
                     runListOperationMenu();
                     break;
                 case 2: // Load an existing list
                     System.out.print("Enter the filename to load: ");
                     String filename = scanny.nextLine();
-                    tasks = new TaskList();
-                    tasks.read(filename);
+                    list = new TaskList();
+                    list.read(filename);
                     runListOperationMenu();
                     break;
                 case 0: // Quit
@@ -111,10 +109,11 @@ public class TaskApp extends App {
             input = Integer.parseInt(promptInput());
             switch(input) {
                 case 1: // View current list
-                    tasks.printList();
+                    list.printList();
                     break;
                 case 2: // Add item to current list
                     storeItem(getItem());
+                    System.out.println("Your task was added to the list.");
                     break;
                 case 3: // Edit item in current list
                     edit();
@@ -165,7 +164,7 @@ public class TaskApp extends App {
     @Override
     public void edit() {
         try {
-            tasks.printList();
+            list.printList();
             System.out.println("Edit which item?");
             int itemToEdit = Integer.parseInt(promptInput())-1;
             System.out.print("Enter a new name for the task: ");
@@ -175,7 +174,7 @@ public class TaskApp extends App {
             System.out.print("Enter the task's new due date in the form YYYY-MM-DD: ");
             String newDueDate = scanny.nextLine();
 
-            tasks.edit(itemToEdit, new String[]{newName, newDescription, newDueDate});
+            list.edit(itemToEdit, new String[]{newName, newDescription, newDueDate});
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
         }
