@@ -6,6 +6,16 @@ import java.util.Scanner;
 
 public class ContactApp extends App{
     @Override
+    public void runMainMenu() {
+
+    }
+
+    @Override
+    public void writeItem() {
+
+    }
+
+    @Override
     public void storeItem(Item item) {
 
     }

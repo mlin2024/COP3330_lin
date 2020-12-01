@@ -12,12 +12,12 @@ public class TaskApp extends App {
     public TaskApp() {
         tasks = (TaskList)list;
     }
-
-    private void runMainMenu() {
+    @Override
+    public void runMainMenu() {
         int input = -1;
         while(input!=0) {
             System.out.println();
-            System.out.println("Main Menu");
+            System.out.println("Task List Application Main Menu");
             System.out.println("____________");
             System.out.println("1) Create a new list");
             System.out.println("2) Load an existing list");
@@ -91,35 +91,6 @@ public class TaskApp extends App {
         }
     }
 
-    public void writeItem() {
-        tasks.write("output.txt");
-    }
-
-    public void storeItem(Item task) {
-        tasks.add(task);
-    }
-
-    public Item getItem() {
-        TaskItem task = null;
-        while(true) {
-            try {
-                String name = getTaskName();
-                String description = getTaskDescription();
-                String dueDate = getTaskDueDate();
-
-                task = new TaskItem(name, description, dueDate, false);
-                break;
-            } catch (InvalidNameException ex) {
-                System.out.println("Warning: your name was invalid, please double check it and try again");
-            } catch (InvalidDescriptionException ex) {
-                System.out.println("Warning: your grade was invalid, please double check it and try again");
-            } catch (InvalidDueDateException ex) {
-                System.out.println("Warning: your due date was invalid, please double check it and try again");
-            }
-        }
-        return task;
-    }
-
     private String getTaskName() {
         System.out.print("Enter a name for the task: ");
         return scanny.nextLine();
@@ -133,35 +104,6 @@ public class TaskApp extends App {
     private String getTaskDueDate() {
         System.out.print("Enter the task's due date in the form YYYY-MM-DD: ");
         return scanny.nextLine();
-    }
-
-    public void edit() {
-        try {
-            tasks.printList();
-            System.out.println("Edit which item?");
-            int itemToEdit = Integer.parseInt(promptInput())-1;
-            System.out.print("Enter a new name for the task: ");
-            String newName = scanny.nextLine();
-            System.out.print("Enter a new description for the task: ");
-            String newDescription = scanny.nextLine();
-            System.out.print("Enter the task's new due date in the form YYYY-MM-DD: ");
-            String newDueDate = scanny.nextLine();
-
-            tasks.edit(new String[]{Integer.toString(itemToEdit), newName, newDescription, newDueDate});
-        } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Item doesn't exist");
-        }
-    }
-
-    public void remove() {
-        try {
-            tasks.printList();
-            System.out.println("Remove which item?");
-            int itemToRemove = Integer.parseInt(promptInput())-1;
-            tasks.remove(itemToRemove);
-        } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Item doesn't exist");
-        }
     }
 
     private void setComplete() {
@@ -194,6 +136,70 @@ public class TaskApp extends App {
         }
     }
 
+    @Override
+    public void writeItem() {
+        tasks.write("output.txt");
+    }
+
+    @Override
+    public void storeItem(Item task) {
+        tasks.add(task);
+    }
+
+    @Override
+    public Item getItem() {
+        TaskItem task = null;
+        while(true) {
+            try {
+                String name = getTaskName();
+                String description = getTaskDescription();
+                String dueDate = getTaskDueDate();
+
+                task = new TaskItem(name, description, dueDate, false);
+                break;
+            } catch (InvalidNameException ex) {
+                System.out.println("Warning: your name was invalid, please double check it and try again");
+            } catch (InvalidDescriptionException ex) {
+                System.out.println("Warning: your grade was invalid, please double check it and try again");
+            } catch (InvalidDueDateException ex) {
+                System.out.println("Warning: your due date was invalid, please double check it and try again");
+            }
+        }
+        return task;
+    }
+
+    @Override
+    public void edit() {
+        try {
+            tasks.printList();
+            System.out.println("Edit which item?");
+            int itemToEdit = Integer.parseInt(promptInput())-1;
+            System.out.print("Enter a new name for the task: ");
+            String newName = scanny.nextLine();
+            System.out.print("Enter a new description for the task: ");
+            String newDescription = scanny.nextLine();
+            System.out.print("Enter the task's new due date in the form YYYY-MM-DD: ");
+            String newDueDate = scanny.nextLine();
+
+            tasks.edit(new String[]{Integer.toString(itemToEdit), newName, newDescription, newDueDate});
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Item doesn't exist");
+        }
+    }
+
+    @Override
+    public void remove() {
+        try {
+            tasks.printList();
+            System.out.println("Remove which item?");
+            int itemToRemove = Integer.parseInt(promptInput())-1;
+            tasks.remove(itemToRemove);
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Item doesn't exist");
+        }
+    }
+
+    @Override
     public void write() {
         System.out.println("Save to what file?");
         String filename = scanny.nextLine();

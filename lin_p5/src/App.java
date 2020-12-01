@@ -9,7 +9,7 @@ public abstract class App {
 
     public MyList list;
 
-    private static void runMainMenu() {
+    private static void runAppMenu() {
         int input = -1;
         while(input!=0) {
             System.out.println();
@@ -22,11 +22,11 @@ public abstract class App {
             switch (input) {
                 case 1: // Task List
                     TaskApp t = new TaskApp();
-
+                    t.runMainMenu();
                     break;
                 case 2: // Contact List
                     ContactApp c = new ContactApp();
-
+                    c.runMainMenu();
                     break;
                 case 0: // Quit
                     System.out.println("Goodbye.");
@@ -59,6 +59,8 @@ public abstract class App {
         }
     }
 
+    abstract public void runMainMenu();
+    abstract public void writeItem();
     abstract public void storeItem(Item item);
     abstract public Item getItem();
     abstract public void edit();
@@ -66,6 +68,6 @@ public abstract class App {
     abstract public void write();
 
     public static void main(String[] args) {
-        runMainMenu();
+        runAppMenu();
     }
 }
