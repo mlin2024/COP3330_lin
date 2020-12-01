@@ -14,6 +14,26 @@ public class ContactApp extends App {
         contacts = (ContactList)list;
     }
 
+    private String getContactFirstName() {
+        System.out.print("Enter the contact's first name (leave blank if unknown): ");
+        return scanny.nextLine();
+    }
+
+    private String getContactLastName() {
+        System.out.print("Enter the contact's last name (leave blank if unknown): ");
+        return scanny.nextLine();
+    }
+
+    private String getContactPhoneNumber() {
+        System.out.print("Enter the contact's phone number in the form xxx-xxx-xxxx (leave blank if unknown): ");
+        return scanny.nextLine();
+    }
+
+    private String getContactEmail() {
+        System.out.print("Enter the contact's email in the form x@y.z (leave blank if unknown): ");
+        return scanny.nextLine();
+    }
+
 // ABSTRACT METHODS _______________________________________________________
     @Override
     public void runMainMenu() {
@@ -99,8 +119,8 @@ public class ContactApp extends App {
 
                 contact = new ContactItem(firstName, lastName, phoneNumber, email);
                 break;
-            } catch (InvalidNameException ex) {
-                System.out.println("Warning: your name was invalid, please double check it and try again");
+            } catch (InvalidContactException ex) {
+                System.out.println("Warning: creating contact failed, you must fill in at least one field for this contact.");
             } catch (InvalidPhoneNumberException ex) {
                 System.out.println("Warning: your phone number was invalid, please double check it and try again");
             } catch (InvalidEmailException ex) {

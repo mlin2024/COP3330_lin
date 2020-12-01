@@ -4,6 +4,7 @@ import java.util.List;
 public abstract class MyList {
     public List<Item> list;
 
+// MYLIST METHODS _______________________________________________________
     public MyList() {
         list = new ArrayList<>();
     }
@@ -25,6 +26,7 @@ public abstract class MyList {
         }
     }
 
+// ABSTRACT METHODS _______________________________________________________
     abstract public Item getItem(int index);
     abstract public void printList();
     abstract public void edit(String[] args);

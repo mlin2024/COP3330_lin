@@ -7,6 +7,7 @@ public class TaskItem extends Item {
     private String dueDate;
     private boolean complete;
 
+// TASKITEM METHODS _______________________________________________________
     public TaskItem(String name, String description, String dueDate, boolean completionStatus) {
         if(isNameValid(name)) {
             this.name = name;
@@ -78,6 +79,12 @@ public class TaskItem extends Item {
         return this.complete;
     }
 
+    public void setCompletionStatus(boolean completionStatus) {
+        this.complete = completionStatus;
+    }
+
+// ABSTRACT METHODS _______________________________________________________
+    @Override
     public void edit(String[] args) {
         String newName = args[0];
         String newDescription = args[1];
@@ -86,10 +93,6 @@ public class TaskItem extends Item {
         this.name = newName;
         this.description = newDescription;
         this.dueDate = newDueDate;
-    }
-
-    public void setCompletionStatus(boolean completionStatus) {
-        this.complete = completionStatus;
     }
 }
 class InvalidNameException extends IllegalArgumentException {

@@ -9,6 +9,7 @@ public abstract class App {
 
     public MyList list;
 
+// APP METHODS _______________________________________________________
     private static void runAppMenu() {
         int input = -1;
         while(input!=0) {
@@ -84,10 +85,11 @@ public abstract class App {
         list.write(filename);
     }
 
-    abstract public void runMainMenu();
-    abstract public void runListOperationMenu();
-    abstract public Item getItem();
-    abstract public void edit();
+// ABSTRACT METHODS _______________________________________________________
+    public abstract void runMainMenu();
+    public abstract void runListOperationMenu();
+    public abstract Item getItem();
+    public abstract void edit();
 
     public static void main(String[] args) {
         runAppMenu();
