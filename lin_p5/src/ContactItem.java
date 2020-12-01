@@ -38,7 +38,7 @@ public class ContactItem extends Item {
     }
 
     private boolean isEmailValid(String email) {
-        return (email.matches("\\w@\\w\\.\\w"));
+        return (email.matches("(\\w+)@(\\w+).(\\w+)"));
     }
 
     public String getFirstName() {
