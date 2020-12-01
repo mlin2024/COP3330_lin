@@ -5,8 +5,11 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 
-public class ContactList extends MyList{
+public class ContactList extends MyList {
+// CONTACTLIST METHODS _______________________________________________________
 
+
+// ABSTRACT METHODS _______________________________________________________
     @Override
     public Item getItem(int index) {
         return null;

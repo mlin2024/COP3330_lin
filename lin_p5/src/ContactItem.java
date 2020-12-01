@@ -1,2 +1,2 @@
-public class ContactItem extends Item{
+public class ContactItem extends Item {
 }

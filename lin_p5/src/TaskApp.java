@@ -9,9 +9,12 @@ public class TaskApp extends App {
 
     private TaskList tasks;
 
+// TASKAPP METHODS _______________________________________________________
     public TaskApp() {
         tasks = (TaskList)list;
     }
+
+// ABSTRACT METHODS _______________________________________________________
     @Override
     public void runMainMenu() {
         int input = -1;

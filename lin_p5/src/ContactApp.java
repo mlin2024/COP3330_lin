@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ContactApp extends App{
+public class ContactApp extends App {
+// CONTACTAPP METHODS _______________________________________________________
+
+
+// ABSTRACT METHODS _______________________________________________________
     @Override
     public void runMainMenu() {
 

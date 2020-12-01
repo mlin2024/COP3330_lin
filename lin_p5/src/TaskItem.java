@@ -1,7 +1,7 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-public class TaskItem extends Item{
+public class TaskItem extends Item {
     private String name;
     private String description;
     private String dueDate;

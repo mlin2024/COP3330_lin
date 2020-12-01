@@ -5,8 +5,24 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 
-public class TaskList extends MyList{
+public class TaskList extends MyList {
+// TASKLIST METHODS _______________________________________________________
+    public void setCompletionStatus(int index, boolean completionStatus) {
+        if(index<0 || index >= list.size()) {
+            throw new IndexOutOfBoundsException("Item doesn't exist");
+        }
+        else {
+            ((TaskItem)list.get(index)).setCompletionStatus(completionStatus);
+        }
+    }
 
+// ABSTRACT METHODS _______________________________________________________
+    @Override
+    public TaskItem getItem(int index) {
+        return (TaskItem)list.get(index);
+    }
+
+    @Override
     public void printList() {
         System.out.println("Current Tasks");
         System.out.println("____________");
@@ -23,10 +39,7 @@ public class TaskList extends MyList{
         }
     }
 
-    public TaskItem getItem(int index) {
-        return (TaskItem)list.get(index);
-    }
-
+    @Override
     public void edit(String[] args) {
         int index = Integer.parseInt(args[0]);
         String newName = args[1];
@@ -40,15 +53,7 @@ public class TaskList extends MyList{
         }
     }
 
-    public void setCompletionStatus(int index, boolean completionStatus) {
-        if(index<0 || index >= list.size()) {
-            throw new IndexOutOfBoundsException("Item doesn't exist");
-        }
-        else {
-            ((TaskItem)list.get(index)).setCompletionStatus(completionStatus);
-        }
-    }
-
+    @Override
     public void read(String filename) {
         try {
             File file = new File(filename);
@@ -67,6 +72,7 @@ public class TaskList extends MyList{
         }
     }
 
+    @Override
     public void write(String filename) {
         try(Formatter output = new Formatter(filename)) {
             for(int i = 0; i < list.size(); i++) {
