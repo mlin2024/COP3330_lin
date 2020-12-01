@@ -5,34 +5,17 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 
-public class TaskList {
-    List<TaskItem> tasks;
-
-    public TaskList() {
-        tasks = new ArrayList<>();
-    }
-
-    public TaskItem getTaskItem(int index) {
-        return tasks.get(index);
-    }
-
-    public int size() {
-        return tasks.size();
-    }
-
-    public void add(TaskItem task) {
-        tasks.add(task);
-    }
+public class TaskList extends MyList{
 
     public void printList() {
         System.out.println("Current Tasks");
         System.out.println("____________");
-        if(tasks.size()==0) {
+        if(list.size()==0) {
             System.out.println("This task list is empty!");
         }
         else {
-            for (int i = 0; i < tasks.size(); i++) {
-                TaskItem curTask = tasks.get(i);
+            for (int i = 0; i < list.size(); i++) {
+                TaskItem curTask = (TaskItem) list.get(i);
                 if(curTask.getComplete()==true) System.out.print("X ");
                 else System.out.print("O ");
                 System.out.println((i + 1) + ") [" + curTask.getDueDate() + "] " + curTask.getName() + ": " + curTask.getDescription());
@@ -40,30 +23,29 @@ public class TaskList {
         }
     }
 
-    public void edit(int index, String newName, String newDescription, String newDueDate) {
-        if(index<0 || index >= tasks.size()) {
-            throw new IndexOutOfBoundsException("Item doesn't exist");
-        }
-        else {
-            tasks.get(index).edit(newName, newDescription, newDueDate);
-        }
+    public TaskItem getItem(int index) {
+        return (TaskItem)list.get(index);
     }
 
-    public void remove(int index) {
-        if(index<0 || index >= tasks.size()) {
+    public void edit(String[] args) {
+        int index = Integer.parseInt(args[0]);
+        String newName = args[1];
+        String newDescription = args[2];
+        String newDueDate = args[3];
+        if(index<0 || index >= list.size()) {
             throw new IndexOutOfBoundsException("Item doesn't exist");
         }
         else {
-            tasks.remove(index);
+            ((TaskItem)list.get(index)).edit(args);
         }
     }
 
     public void setCompletionStatus(int index, boolean completionStatus) {
-        if(index<0 || index >= tasks.size()) {
+        if(index<0 || index >= list.size()) {
             throw new IndexOutOfBoundsException("Item doesn't exist");
         }
         else {
-            tasks.get(index).setCompletionStatus(completionStatus);
+            ((TaskItem)list.get(index)).setCompletionStatus(completionStatus);
         }
     }
 
@@ -75,7 +57,8 @@ public class TaskList {
                 String name = scanny.nextLine();
                 String description = scanny.nextLine();
                 String dueDate = scanny.nextLine();
-                add(new TaskItem(name, description, dueDate));
+                String completionStatus = scanny.nextLine();
+                add(new TaskItem(name, description, dueDate, completionStatus.equals("true") ? true : false));
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to find the file...");
@@ -86,9 +69,9 @@ public class TaskList {
 
     public void write(String filename) {
         try(Formatter output = new Formatter(filename)) {
-            for(int i = 0; i < tasks.size(); i++) {
-                TaskItem task = tasks.get(i);
-                output.format("%s%n%s%n%s%n", task.getName(), task.getDescription(), task.getDueDate());
+            for(int i = 0; i < list.size(); i++) {
+                TaskItem task = (TaskItem)list.get(i);
+                output.format("%s%n%s%n%s%n%s%n", task.getName(), task.getDescription(), task.getDueDate(), task.getComplete() ? "true" : "false");
             }
 
         } catch (FileNotFoundException ex) {

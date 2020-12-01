@@ -1,10 +1,13 @@
-public class TaskItem {
+import java.time.DateTimeException;
+import java.time.LocalDate;
+
+public class TaskItem extends Item{
     private String name;
     private String description;
     private String dueDate;
     private boolean complete;
 
-    public TaskItem(String name, String description, String dueDate) {
+    public TaskItem(String name, String description, String dueDate, boolean completionStatus) {
         if(isNameValid(name)) {
             this.name = name;
         } else {
@@ -23,7 +26,7 @@ public class TaskItem {
             throw new InvalidDueDateException("Due date is not valid; must be in the form YYYY-MM-DD");
         }
 
-        this.complete = false;
+        this.complete = completionStatus;
     }
 
     private boolean isNameValid(String name) {
@@ -50,9 +53,12 @@ public class TaskItem {
         int year = Integer.parseInt(dueDateArray[0]);
         int month = Integer.parseInt(dueDateArray[1]);
         int day = Integer.parseInt(dueDateArray[2]);
-
-        if(month>12) return false;
-        if(day>31) return false;
+        try {
+            LocalDate date = LocalDate.of(year, month, day);
+        }
+        catch (DateTimeException e) {
+            return false;
+        }
         return true;
     }
 
@@ -72,8 +78,11 @@ public class TaskItem {
         return this.complete;
     }
 
-    public void edit(String newName, String newDescription, String newDueDate) {
-        new TaskItem(newName, newDescription, newDueDate);
+    public void edit(String[] args) {
+        String newName = args[0];
+        String newDescription = args[1];
+        String newDueDate = args[2];
+        new TaskItem(newName, newDescription, newDueDate, this.complete);
         this.name = newName;
         this.description = newDescription;
         this.dueDate = newDueDate;

@@ -7,7 +7,7 @@ class TaskItemTest {
     public void creatingTaskItemFailsWithInvalidDueDate() {
         assertThrows(InvalidDueDateException.class,
                 ()-> {
-                    new TaskItem("a", "aaa", "11/16/2020");
+                    new TaskItem("a", "aaa", "11/16/2020", false);
                 });
     }
 
@@ -15,7 +15,7 @@ class TaskItemTest {
     public void creatingTaskItemFailsWithInvalidTitle() {
         assertThrows(InvalidNameException.class,
                 ()-> {
-                    new TaskItem("", "aaa", "2020-11-16");
+                    new TaskItem("", "aaa", "2020-11-16", false);
                 });
     }
 
@@ -23,7 +23,7 @@ class TaskItemTest {
     public void creatingTaskItemSucceedsWithValidDueDate() {
         assertDoesNotThrow(
                 ()-> {
-                    new TaskItem("a", "aaa", "2020-11-16");
+                    new TaskItem("a", "aaa", "2020-11-16", false);
                 });
     }
 
@@ -31,7 +31,7 @@ class TaskItemTest {
     public void creatingTaskItemSucceedsWithValidTitle() {
         assertDoesNotThrow(
                 ()-> {
-                    new TaskItem("a", "aaa", "2020-11-16");
+                    new TaskItem("a", "aaa", "2020-11-16", false);
                 });
     }
 
@@ -39,8 +39,8 @@ class TaskItemTest {
     public void settingTaskItemDueDateFailsWithInvalidDate() {
         assertThrows(InvalidDueDateException.class,
                 ()-> {
-                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16");
-                    task.edit("a", "aaa", "11/16/2020");
+                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16", false);
+                    task.edit(new String[]{"a", "aaa", "11/16/2020"});
                 });
     }
 
@@ -48,8 +48,8 @@ class TaskItemTest {
     public void settingTaskItemDueDateSucceedsWithValidDate() {
         assertDoesNotThrow(
                 ()-> {
-                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16");
-                    task.edit("a", "aaa", "2019-11-16");
+                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16", false);
+                    task.edit(new String[]{"a", "aaa", "2019-11-16"});
                 });
     }
 
@@ -57,8 +57,8 @@ class TaskItemTest {
     public void settingTaskItemTitleFailsWithInvalidTitle() {
         assertThrows(InvalidNameException.class,
                 ()-> {
-                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16");
-                    task.edit("", "aaa", "2020-11-16");
+                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16", false);
+                    task.edit(new String[]{"", "aaa", "2020-11-16"});
                 });
     }
 
@@ -66,8 +66,8 @@ class TaskItemTest {
     public void settingTaskItemTitleSucceedsWithValidTitle() {
         assertDoesNotThrow(
                 ()-> {
-                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16");
-                    task.edit("b", "aaa", "2020-11-16");
+                    TaskItem task = new TaskItem("a", "aaa", "2020-11-16", false);
+                    task.edit(new String[]{"b", "aaa", "2020-11-16"});
                 });
     }
 }

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class App {
+public abstract class App {
     private static Scanner scanny = new Scanner(System.in);
 
-    private void runMainMenu() {
+    public MyList list;
+
+    private static void runMainMenu() {
         int input = -1;
         while(input!=0) {
             System.out.println();
@@ -57,9 +59,13 @@ public class App {
         }
     }
 
-    public static void main(String[] args) {
-        App m = new App();
+    abstract public void storeItem(Item item);
+    abstract public Item getItem();
+    abstract public void edit();
+    abstract public void remove();
+    abstract public void write();
 
-        m.runMainMenu();
+    public static void main(String[] args) {
+        runMainMenu();
     }
 }

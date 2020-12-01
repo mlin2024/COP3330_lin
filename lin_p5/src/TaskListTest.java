@@ -7,7 +7,7 @@ class TaskListTest {
     public void addingTaskItemsIncreasesSize() {
         TaskList tasks = new TaskList();
         int oldSize = tasks.size();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
         int newSize = tasks.size();
 
         assertEquals(oldSize+1, newSize);
@@ -16,10 +16,10 @@ class TaskListTest {
     @Test
     public void completingTaskItemChangesStatus() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        boolean oldCompletionStatus = tasks.getTaskItem(0).getComplete();
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        boolean oldCompletionStatus = tasks.getItem(0).getComplete();
         tasks.setCompletionStatus(0, true);
-        boolean newCompletionStatus = tasks.getTaskItem(0).getComplete();
+        boolean newCompletionStatus = tasks.getItem(0).getComplete();
 
         assertNotEquals(oldCompletionStatus, newCompletionStatus);
     }
@@ -29,7 +29,7 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
                     tasks.setCompletionStatus(1, true);
                 });
     }
@@ -37,19 +37,19 @@ class TaskListTest {
     @Test
     public void editingTaskItemChangesValues() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        tasks.getTaskItem(0).edit("b", "bbb", "2019-11-16");
-        assertEquals("b", tasks.getTaskItem(0).getName());
-        assertEquals("bbb", tasks.getTaskItem(0).getDescription());
-        assertEquals("2019-11-16", tasks.getTaskItem(0).getDueDate());
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        tasks.getItem(0).edit(new String[]{"b", "bbb", "2019-11-16"});
+        assertEquals("b", tasks.getItem(0).getName());
+        assertEquals("bbb", tasks.getItem(0).getDescription());
+        assertEquals("2019-11-16", tasks.getItem(0).getDueDate());
     }
 
     @Test
     public void editingTaskItemDescriptionChangesValue() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        tasks.getTaskItem(0).edit("a", "bbb", "2020-11-16");
-        assertEquals("bbb", tasks.getTaskItem(0).getDescription());
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        tasks.getItem(0).edit(new String[]{"a", "bbb", "2020-11-16"});
+        assertEquals("bbb", tasks.getItem(0).getDescription());
     }
 
     @Test
@@ -57,17 +57,17 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(1).edit("a", "bbb", "2020-11-16");
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(1).edit(new String[]{"a", "bbb", "2020-11-16"});
                 });
     }
 
     @Test
     public void editingTaskItemDueDateChangesValue() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        tasks.getTaskItem(0).edit("a", "aaa", "2019-11-16");
-        assertEquals("2019-11-16", tasks.getTaskItem(0).getDueDate());
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        tasks.getItem(0).edit(new String[]{"a", "aaa", "2019-11-16"});
+        assertEquals("2019-11-16", tasks.getItem(0).getDueDate());
     }
 
     @Test
@@ -75,17 +75,17 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(1).edit("a", "aaa", "2019-11-16");
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(1).edit(new String[]{"a", "aaa", "2019-11-16"});
                 });
     }
 
     @Test
     public void editingTaskItemTitleChangesValue() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        tasks.getTaskItem(0).edit("b", "aaa", "2020-11-16");
-        assertEquals("b", tasks.getTaskItem(0).getName());
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        tasks.getItem(0).edit(new String[]{"b", "aaa", "2020-11-16"});
+        assertEquals("b", tasks.getItem(0).getName());
     }
 
     @Test
@@ -93,8 +93,8 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(1).edit("b", "aaa", "2020-11-16");
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(1).edit(new String[]{"b", "aaa", "2020-11-16"});
                 });
     }
 
@@ -103,8 +103,8 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(1).getDescription();
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(1).getDescription();
                 });
     }
 
@@ -113,13 +113,13 @@ class TaskListTest {
         assertDoesNotThrow(
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(0).getDescription();
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(0).getDescription();
                 });
 
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        String gottenDescription = tasks.getTaskItem(0).getDescription();
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        String gottenDescription = tasks.getItem(0).getDescription();
         assertEquals("aaa", gottenDescription);
     }
 
@@ -128,8 +128,8 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(1).getDueDate();
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(1).getDueDate();
                 });
     }
 
@@ -138,13 +138,13 @@ class TaskListTest {
         assertDoesNotThrow(
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(0).getDueDate();
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(0).getDueDate();
                 });
 
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        String gottenDueDate = tasks.getTaskItem(0).getDueDate();
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        String gottenDueDate = tasks.getItem(0).getDueDate();
         assertEquals("2020-11-16", gottenDueDate);
     }
 
@@ -153,8 +153,8 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(1).getName();
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(1).getName();
                 });
     }
 
@@ -163,13 +163,13 @@ class TaskListTest {
         assertDoesNotThrow(
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-                    tasks.getTaskItem(0).getName();
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+                    tasks.getItem(0).getName();
                 });
 
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        String gottenName = tasks.getTaskItem(0).getName();
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        String gottenName = tasks.getItem(0).getName();
         assertEquals("a", gottenName);
     }
 
@@ -182,7 +182,7 @@ class TaskListTest {
     @Test
     public void removingTaskItemsDecreasesSize() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
         int oldSize = tasks.size();
         tasks.remove(0);
         int newSize = tasks.size();
@@ -194,7 +194,7 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
                     tasks.remove(1);
                 });
     }
@@ -204,7 +204,7 @@ class TaskListTest {
         assertDoesNotThrow(
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
                     tasks.read("test.txt");
                 });
     }
@@ -212,11 +212,11 @@ class TaskListTest {
     @Test
     public void uncompletingTaskItemChangesStatus() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
         tasks.setCompletionStatus(0, true);
-        boolean oldCompletionStatus = tasks.getTaskItem(0).getComplete();
+        boolean oldCompletionStatus = tasks.getItem(0).getComplete();
         tasks.setCompletionStatus(0, false);
-        boolean newCompletionStatus = tasks.getTaskItem(0).getComplete();
+        boolean newCompletionStatus = tasks.getItem(0).getComplete();
         assertNotEquals(oldCompletionStatus, newCompletionStatus);
     }
 
@@ -225,7 +225,7 @@ class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class,
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
                     tasks.setCompletionStatus(1, false);
                 });
     }
@@ -235,7 +235,7 @@ class TaskListTest {
         assertDoesNotThrow(
                 ()-> {
                     TaskList tasks = new TaskList();
-                    tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
+                    tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
                     tasks.write("test.txt");
                 });
     }
@@ -243,15 +243,15 @@ class TaskListTest {
     @Test
     public void importingAndExportingIsCorrect() {
         TaskList tasks = new TaskList();
-        tasks.add(new TaskItem("a", "aaa", "2020-11-16"));
-        String oldName = tasks.getTaskItem(0).getName();
-        String oldDescription = tasks.getTaskItem(0).getDescription();
-        String oldDueDate = tasks.getTaskItem(0).getDueDate();
+        tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));
+        String oldName = tasks.getItem(0).getName();
+        String oldDescription = tasks.getItem(0).getDescription();
+        String oldDueDate = tasks.getItem(0).getDueDate();
         tasks.write("test.txt");
         TaskList newTasks = new TaskList();
         newTasks.read("test.txt");
-        assertEquals(oldName, newTasks.getTaskItem(0).getName());
-        assertEquals(oldDescription, newTasks.getTaskItem(0).getDescription());
-        assertEquals(oldDueDate, newTasks.getTaskItem(0).getDueDate());
+        assertEquals(oldName, newTasks.getItem(0).getName());
+        assertEquals(oldDescription, newTasks.getItem(0).getDescription());
+        assertEquals(oldDueDate, newTasks.getItem(0).getDueDate());
     }
 }

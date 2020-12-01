@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TaskApp extends App{
+public class TaskApp extends App {
     private static Scanner scanny = new Scanner(System.in);
 
     private TaskList tasks;
 
     public TaskApp() {
-        tasks = new TaskList();
+        tasks = (TaskList)list;
     }
 
     private void runMainMenu() {
@@ -65,7 +65,7 @@ public class TaskApp extends App{
                     tasks.printList();
                     break;
                 case 2: // Add item to current list
-                    storeTaskItem(getTaskItem());
+                    storeItem(getItem());
                     break;
                 case 3: // Edit item in current list
                     edit();
@@ -91,15 +91,15 @@ public class TaskApp extends App{
         }
     }
 
-    private void writeTaskItem() {
+    public void writeItem() {
         tasks.write("output.txt");
     }
 
-    private void storeTaskItem(TaskItem task) {
+    public void storeItem(Item task) {
         tasks.add(task);
     }
 
-    private TaskItem getTaskItem() {
+    public Item getItem() {
         TaskItem task = null;
         while(true) {
             try {
@@ -107,7 +107,7 @@ public class TaskApp extends App{
                 String description = getTaskDescription();
                 String dueDate = getTaskDueDate();
 
-                task = new TaskItem(name, description, dueDate);
+                task = new TaskItem(name, description, dueDate, false);
                 break;
             } catch (InvalidNameException ex) {
                 System.out.println("Warning: your name was invalid, please double check it and try again");
@@ -135,7 +135,7 @@ public class TaskApp extends App{
         return scanny.nextLine();
     }
 
-    private void edit() {
+    public void edit() {
         try {
             tasks.printList();
             System.out.println("Edit which item?");
@@ -146,13 +146,14 @@ public class TaskApp extends App{
             String newDescription = scanny.nextLine();
             System.out.print("Enter the task's new due date in the form YYYY-MM-DD: ");
             String newDueDate = scanny.nextLine();
-            tasks.edit(itemToEdit, newName, newDescription, newDueDate);
+
+            tasks.edit(new String[]{Integer.toString(itemToEdit), newName, newDescription, newDueDate});
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
         }
     }
 
-    private void remove() {
+    public void remove() {
         try {
             tasks.printList();
             System.out.println("Remove which item?");
@@ -168,7 +169,7 @@ public class TaskApp extends App{
             tasks.printList();
             System.out.println("Mark which item as complete?");
             int itemToSetComplete = Integer.parseInt(promptInput()) - 1;
-            if (tasks.getTaskItem(itemToSetComplete).getComplete() == true) {
+            if (tasks.getItem(itemToSetComplete).getComplete() == true) {
                 System.out.println("Item is already marked as complete.");
             } else {
                 tasks.setCompletionStatus(itemToSetComplete, true);
@@ -183,7 +184,7 @@ public class TaskApp extends App{
             tasks.printList();
             System.out.println("Unmark which item as incomplete?");
             int itemToSetIncomplete = Integer.parseInt(promptInput()) - 1;
-            if (tasks.getTaskItem(itemToSetIncomplete).getComplete() == false) {
+            if (tasks.getItem(itemToSetIncomplete).getComplete() == false) {
                 System.out.println("Item is not marked as complete.");
             } else {
                 tasks.setCompletionStatus(itemToSetIncomplete, true);
@@ -193,7 +194,7 @@ public class TaskApp extends App{
         }
     }
 
-    private void write() {
+    public void write() {
         System.out.println("Save to what file?");
         String filename = scanny.nextLine();
         tasks.write(filename);
