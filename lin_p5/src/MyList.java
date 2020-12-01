@@ -29,7 +29,7 @@ public abstract class MyList {
 // ABSTRACT METHODS _______________________________________________________
     abstract public Item getItem(int index);
     abstract public void printList();
-    abstract public void edit(String[] args);
+    abstract public void edit(int index, String[] args);
     abstract public void read(String filename);
     abstract public void write(String filename);
 }

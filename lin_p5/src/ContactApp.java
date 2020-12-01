@@ -145,7 +145,7 @@ public class ContactApp extends App {
             System.out.print("Enter a new email for the contact: ");
             String newEmail = scanny.nextLine();
 
-            contacts.edit(new String[]{Integer.toString(itemToEdit), newFirstName, newLastName, newPhoneNumber, newEmail});
+            contacts.edit(itemToEdit, new String[]{newFirstName, newLastName, newPhoneNumber, newEmail});
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
         }

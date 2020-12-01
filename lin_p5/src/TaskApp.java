@@ -175,7 +175,7 @@ public class TaskApp extends App {
             System.out.print("Enter the task's new due date in the form YYYY-MM-DD: ");
             String newDueDate = scanny.nextLine();
 
-            tasks.edit(new String[]{Integer.toString(itemToEdit), newName, newDescription, newDueDate});
+            tasks.edit(itemToEdit, new String[]{newName, newDescription, newDueDate});
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Item doesn't exist");
         }

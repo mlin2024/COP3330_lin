@@ -40,11 +40,10 @@ public class TaskList extends MyList {
     }
 
     @Override
-    public void edit(String[] args) {
-        int index = Integer.parseInt(args[0]);
-        String newName = args[1];
-        String newDescription = args[2];
-        String newDueDate = args[3];
+    public void edit(int index, String[] args) {
+        String newName = args[0];
+        String newDescription = args[1];
+        String newDueDate = args[2];
         if(index<0 || index >= list.size()) {
             throw new IndexOutOfBoundsException("Item doesn't exist");
         }
