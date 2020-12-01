@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaskListTest {
     @Test
-    public void addingTaskItemsIncreasesSize() {
+    public void addingTaskItemsIncreasesSize(){
         TaskList tasks = new TaskList();
         int oldSize = tasks.size();
         tasks.add(new TaskItem("a", "aaa", "2020-11-16", false));

@@ -10,19 +10,17 @@ public class ContactItem extends Item {
             this.firstName = firstName;
             this.lastName = lastName;
             if (phoneNumber.length() > 0) {
-                if (isPhoneNumberValid(phoneNumber)) {
-                    this.phoneNumber = phoneNumber;
-                } else {
+                if (!isPhoneNumberValid(phoneNumber)) {
                     throw new InvalidPhoneNumberException("Phone number is not valid; must be in the form xxx-xxx-xxxx");
                 }
             }
+            this.phoneNumber = phoneNumber;
             if (email.length() > 0) {
-                if (isEmailValid(email)) {
-                    this.email = email;
-                } else {
+                if (!isEmailValid(email)) {
                     throw new InvalidEmailException("Email is not valid; must be in the form x@y.z");
                 }
             }
+            this.email = email;
         }
         else {
             throw new InvalidContactException("You must fill in at least one field for this contact.");
@@ -38,7 +36,7 @@ public class ContactItem extends Item {
     }
 
     private boolean isEmailValid(String email) {
-        return (email.matches("(\\w+)@(\\w+).(\\w+)"));
+        return (email.matches("\\w+@\\w+\\.\\w+"));
     }
 
     public String getFirstName() {
@@ -69,6 +67,11 @@ public class ContactItem extends Item {
         this.lastName = newLastName;
         this.phoneNumber = newPhoneNumber;
         this.email = newEmail;
+    }
+
+    @Override
+    public String toString() {
+        return this.firstName+" "+this.lastName+" "+this.getPhoneNumber()+" "+this.getEmail();
     }
 }
 
